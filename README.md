@@ -2,7 +2,7 @@
 
 ##### subnet.py
 
-* simple python module for ip network calculations
+simple python module for ip network calculations
 
     $ python
     Python 2.6.6 (r266:84292, Feb 22 2013, 00:00:18)
