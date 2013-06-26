@@ -26,4 +26,22 @@
     ['10.20.30.40', '10.20.30.41', '10.20.30.42', '10.20.30.43', '10.20.30.44', '10.20.30.45', '10.20.30.46', '10.20.30.47']
     >>>
     
-    
+##### generator.py: python module for MAC address generation
+    $ python
+    Python 2.6.6 (r266:84292, Oct 12 2012, 14:23:48) 
+    [GCC 4.4.6 20120305 (Red Hat 4.4.6-4)] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> 
+    >>> import generator
+    >>> 
+    >>> g = generator.GeneratorMAC('00:01:38:2a:00:00', 6)
+    >>> 
+    >>> for mac in g: mac
+    ... 
+    '00:01:38:2a:00:00'
+    '00:01:38:2a:00:01'
+    '00:01:38:2a:00:02'
+    '00:01:38:2a:00:03'
+    '00:01:38:2a:00:04'
+    '00:01:38:2a:00:05'
+    '00:01:38:2a:00:06'
