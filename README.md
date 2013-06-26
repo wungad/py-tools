@@ -2,10 +2,6 @@
 
 ##### subnet.py: simple python module for ip network calculations
 
-    $ python
-    Python 2.6.6 (r266:84292, Feb 22 2013, 00:00:18)
-    [GCC 4.4.7 20120313 (Red Hat 4.4.7-3)] on linux2
-    Type "help", "copyright", "credits" or "license" for more information.
     >>> import subnet
     >>> s1 = subnet.Subnet('10.20.30.40', 29)
     >>> s2 = subnet.Subnet('10.20.30.40', '255.255.255.0')
@@ -27,11 +23,7 @@
     >>>
     
 ##### generator.py: python module for MAC address generation
-    $ python
-    Python 2.6.6 (r266:84292, Oct 12 2012, 14:23:48) 
-    [GCC 4.4.6 20120305 (Red Hat 4.4.6-4)] on linux2
-    Type "help", "copyright", "credits" or "license" for more information.
-    >>> 
+
     >>> import generator
     >>> 
     >>> g = generator.GeneratorMAC('00:01:38:2a:00:00', 6)
