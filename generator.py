@@ -17,7 +17,7 @@ class GeneratorMAC(object):
             raise ValueError, 'Last MAC address > ff:ff:ff:ff:ff:ff'
 
         # start zhe loop
-        for i in range(self.start, self.stop + 1):
+        for i in range(self.start, self.stop):
 
             i = iter('%012x' % i)
             self.result.append( ':'.join([a+b for a,b in zip(i,i)]) )
