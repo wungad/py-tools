@@ -11,6 +11,7 @@ class GeneratorMAC(object):
         self.start = start
         self.stop = start + count
         self.result = []
+        self.i = -1
 
         # raise this if our ending value is out of bounds
         if self.stop > 0xffffffffffff:
@@ -19,18 +20,40 @@ class GeneratorMAC(object):
         # start zhe loop
         for i in range(self.start, self.stop):
 
-            i = iter('%012x' % i)
-            self.result.append( ':'.join([a+b for a,b in zip(i,i)]) )
+            self.result.append(i)
+
+
+    def _nice(self, integer):
+        
+        _iter = iter('%012x' % integer)
+        return ':'.join([a+b for a,b in zip(_iter, _iter)])
 
     def __iter__(self):
-        self.i = -1
         return self
+
+    def __len__(self):
+        return len(self.result)
+        
+    def __getitem__(self, key):
+
+        if isinstance(key, int):
+            try: return self._nice(self.result[key])
+            except IndexError:
+                raise IndexError, "Index out of range"
+        elif isinstance(key, slice):
+
+            (start, stop, step) = key.indices( len(self) )
+            data = self.result[start:stop:step]
+            
+            return [self._nice(mac) for mac in data]
+        else:
+            raise TypeError, "Integer expected"
 
     def next(self):
 
         self.i += 1
         try:
-            return self.result[self.i]
+            return self._nice(self.result[self.i])
         except IndexError:
             raise StopIteration
 
@@ -56,6 +79,7 @@ class GeneratorIP(object):
 
         self.i = -1
         return self
+
 
     def next(self):
 
