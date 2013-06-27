@@ -36,16 +36,21 @@ class GeneratorMAC(object):
         
     def __getitem__(self, key):
 
+        # index
         if isinstance(key, int):
+
             try: return self._nice(self.result[key])
             except IndexError:
                 raise IndexError, "Index out of range"
+        # slice
         elif isinstance(key, slice):
 
             (start, stop, step) = key.indices( len(self) )
             data = self.result[start:stop:step]
             
             return [self._nice(mac) for mac in data]
+
+        # other
         else:
             raise TypeError, "Integer expected"
 
