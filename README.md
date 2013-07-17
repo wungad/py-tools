@@ -1,6 +1,13 @@
 #### python tools to make my life easier
 
 
+##### isis.py: python module for ISIS dump parsing
+    >>> from isis import Database, Record
+    >>> db = Database('ISIS-DATABASE.txt')
+    >>> db.get_hostnames()
+    >>> db.get_addresses()
+    >>> db.get_records()
+
 ##### colors.py: python module for xterm colors
 
     >>> from colors import Color
