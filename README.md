@@ -1,6 +1,8 @@
 #### python tools to make my life easier
 
 
+##### nef_cleaner.py: windows tool for deleting .nef files which have not .jpg pair
+    my wife asked for this :D
 ##### isis.py: python module for ISIS dump parsing
     >>> from isis import Database, Record
     >>> db = Database('ISIS-DATABASE.txt')
