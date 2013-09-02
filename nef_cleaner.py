@@ -52,7 +52,3 @@ else:
   for DEL_FILE in DEL_LIST:
     print 'Brisem', DEL_FILE
     os.unlink(DEL_FILE)
-
-
-
-
