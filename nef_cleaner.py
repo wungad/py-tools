@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import tkFileDialog
 import tkMessageBox
@@ -18,7 +19,7 @@ DEL_LIST = []
 
 
 # MAIN: ask for dir
-dirname = tkFileDialog.askdirectory(title="Izberi mapo", initial='D://', mustexist=True)
+dirname = tkFileDialog.askdirectory(title="Izberi mapo", initialdir='D://', mustexist=True)
 
 if not dirname:
   sys.exit()
