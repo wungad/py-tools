@@ -10,7 +10,7 @@
 	09:23:57.251181 IP (tos 0x0, ttl 253, id 55122, offset 0, flags [none], proto UDP (17), length 385)
 		10.159.12.1.bootps > tr69-dhcp.bootps: BOOTP/DHCP, Request from 00:01:38:9f:00:61 (oui Unknown), length 357, hops 1, xid 0xda070000, secs 8704, Flags [Broadcast]
           Gateway-IP 10.159.12.1
-          Client-Ethernet-Address 00:01:38:9f:00:61 (oui Unknown)
+          Client-Ethernet-Address 00:01:38:00:00:00 (oui Unknown)
           Vendor-rfc1048 Extensions
             Magic Cookie 0x63825363
             DHCP-Message Option 53, length 1: Discover
@@ -21,7 +21,7 @@
               Subnet-Mask, BR, Time-Zone, Default-Gateway
               Classless-Static-Route, Domain-Name, Domain-Name-Server, Hostname
             Agent-Information Option 82, length 55:
-              Circuit-ID SubOption 1, length 53: ISKRATEL:DS03_9224-MS_ipBAN_Salovci_101 atm 1/12:1.33
+              Circuit-ID SubOption 1, length 53: ISKRATEL:DS03_6666-RE_ipBAN_unknown_101 atm 1/12:1.33
 
 ##### nef_cleaner.py: windows tool for deleting .nef files which have not .jpg pair
     my wife asked for this :D
