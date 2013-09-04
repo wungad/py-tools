@@ -42,7 +42,7 @@ for NEF_FILE in NEF_LIST:
 
 # MAIN: delete .nef files
 DEL_COUNT = len(DEL_LIST)
-if not len(DEL_COUNT):
+if not DEL_COUNT:
   tkMessageBox.showinfo(title='Prazen seznam', message='Ne najdem nobene .nef brez .jpg para')
 else:
   yesno = tkMessageBox.askyesno(title='Izbrišem datoteke?', message='Izbrisanih bo %d datotek.' % DEL_COUNT)
