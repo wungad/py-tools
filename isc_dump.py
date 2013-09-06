@@ -63,7 +63,7 @@ arg_count     = None
 arg_type      = None
 arg_gateway   = None
 arg_mac       = None
-arg_network   = '0.0.0.0/0'
+arg_network   = None
 
 # parse options
 for (opt, val) in options: 
@@ -92,7 +92,7 @@ if arg_type != None:
     try: tcpdump_expr.append("udp[250:1] == 0x%d" % isc_types[arg_type])
     except: fatal('unknown message type: %s' % arg_type)
 
-if arg_type != None:
+if arg_network != None:
 
     tcpdump_expr.append("src net %s" % arg_network)
 
