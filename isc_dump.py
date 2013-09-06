@@ -31,7 +31,7 @@ isc_types = {
 # helper funcs
 def usage():
 
-    print 'Usage:', os.path.basename(__file__), '-h | -i INTERFACE [-t TYPE] [-g GATEWAY] [-m MAC]'
+    print 'Usage:', os.path.basename(__file__), '-h | -i INTERFACE [-t TYPE] [-n NETWORK/BITS ] [-g GATEWAY] [-m MAC]'
     print '\t-h or --help: prints this help'
     print '\t-i or --interface: network interface to listen on (default: eth0)'
     print
@@ -40,7 +40,8 @@ def usage():
     for k in isc_types.keys():
         print '\t\t%s' % k
     print
-    print '\t-g or --gateway: gateway ip address to match(default: all gateways)'
+    print '\t-n or --network: network address/bits to match(default: 0.0.0.0/0)'
+    print '\t-g or --gateway: gateway ip address to match (default: all gateways)'
     print '\t\tNOTE: gateway ip address is not available in lease extension packets'
     print
     print '\t-m or --mac: mac address to match (default: all addresses)'
@@ -52,7 +53,7 @@ def fatal(msg):
     sys.exit(1)
 
 # init options
-try: options = getopt.getopt(sys.argv[1:], 'hi:c:t:g:m:', ['help', 'interface=', 'count=', 'type=', 'gateway=', 'mac='])[0]
+try: options = getopt.getopt(sys.argv[1:], 'hi:c:t:n:g:m:', ['help', 'interface=', 'count=', 'type=', 'network=', 'gateway=', 'mac='])[0]
 except getopt.GetoptError: usage()
 
 if not options: usage()
@@ -62,6 +63,7 @@ arg_count     = None
 arg_type      = None
 arg_gateway   = None
 arg_mac       = None
+arg_network   = '0.0.0.0/0'
 
 # parse options
 for (opt, val) in options: 
@@ -70,6 +72,7 @@ for (opt, val) in options:
     elif opt in ['-i', '--interface']: arg_interface = val
     elif opt in ['-c', '--count']: arg_count = val
     elif opt in ['-t', '--type']: arg_type = val
+    elif opt in ['-n', '--network']: arg_network = val
     elif opt in ['-g', '--gateway']: arg_gateway = val
     elif opt in ['-m', '--mac']: arg_mac = val
     else: usage()
@@ -89,6 +92,9 @@ if arg_type != None:
     try: tcpdump_expr.append("udp[250:1] == 0x%d" % isc_types[arg_type])
     except: fatal('unknown message type: %s' % arg_type)
 
+if arg_type != None:
+
+    tcpdump_expr.append("src net %s" % arg_network)
 
 if arg_gateway != None:
 
