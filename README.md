@@ -1,6 +1,15 @@
 #### python tools to make my life easier
 
 
+##### ripeq: tool for querying RIPE database
+    $ ./ripeq 2a00:ee0::/32
+    inet6num         2a00:ee0::/29
+    netname          SI-TELEKOM-20081120
+    descr            Telekom Slovenije d.d.
+    remarks          ISP in Slovenia
+    country          SI
+    ...
+
 ##### isc_dump.py: Linux/Solaris tool for dumping ISC DHCP traffic with handy filters
 	EXAMPLE: dumping DISCOVER packets on bnx27000 coming from relay ip 10.160.56.1:
 	$ sudo isc_dump.py -i bnx27000 -t DISCOVER -g 10.159.12.1

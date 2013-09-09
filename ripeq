@@ -1,0 +1,42 @@
+#!/usr/bin/env python
+import sys
+import os
+import urllib2
+import json
+
+try:
+    sys.argv[1]
+except IndexError:
+    sys.exit("Usage: %s INET4|INET6 address" % os.path.basename(__file__))
+
+# ripe: request
+ripe_search = sys.argv[1]
+ripe_base  = 'http://apps.db.ripe.net/whois/search.json?source=ripe&query-string=%s' % ripe_search
+ripe_client = urllib2.build_opener()
+ripe_client.addheaders.append(('Accept', 'application/json'))
+
+# ripe: response
+try:
+    ripe_response = ripe_client.open(ripe_base)
+except urllib2.HTTPError as e:
+    sys.exit("RIPE responded with %s" % e)
+
+# handle non-json response
+if ripe_response.headers.get('Content-Type') != 'application/json':
+    print 'Not handling non-json content'
+    print ripe_response.info()
+    sys.exit("Bailing out")
+
+# read it
+ripe_json = ripe_response.read()
+ripe_dict = json.loads(ripe_json)
+
+# print it
+for object in ripe_dict['whois-resources']['objects']['object']:
+
+    for attributes in object['attributes']['attribute']:
+
+        name = attributes['name']
+        value = attributes['value']
+
+        print '%-16s %s' % (name, value)
