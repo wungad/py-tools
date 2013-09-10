@@ -3,6 +3,7 @@ import sys
 import os
 import urllib2
 import json
+import colors
 
 try:
     sys.argv[1]
@@ -31,7 +32,19 @@ if ripe_response.headers.get('Content-Type') != 'application/json':
 ripe_json = ripe_response.read()
 ripe_dict = json.loads(ripe_json)
 
+color_yellow = [
+    'inetnum',
+    'inet6num',
+    'route',
+    'route6'
+]
+color_green = [
+    'descr',
+    'mnt-by'
+]
 # print it
+print '%-16s %s' % ('attribute', 'value')
+print '-' * 79
 for object in ripe_dict['whois-resources']['objects']['object']:
 
     for attributes in object['attributes']['attribute']:
@@ -39,4 +52,22 @@ for object in ripe_dict['whois-resources']['objects']['object']:
         name = attributes['name']
         value = attributes['value']
 
-        print '%-16s %s' % (name, value)
+
+        if name in color_yellow:
+
+            print '%s%-16s %s%s' % (colors.Color.YELLOW, name, value, colors.Color.END)
+            
+        elif name in color_green:
+
+            print '%s%-16s %s%s' % (colors.Color.GREEN, name, value, colors.Color.END)
+
+        else:
+
+            print '%-16s %s' % (name, value)
+
+            # print delimiter
+            if name == 'source':
+
+                print '-' * 79
+
+
