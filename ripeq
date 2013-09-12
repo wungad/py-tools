@@ -5,14 +5,26 @@ import urllib2
 import json
 import colors
 
+
+def usage():
+
+	print 'Usage:', os.path.basename(__file__), 'search [type]'
+	print '\tsearch: can be x.x.x.x, x.x.x.x/xx, x.x/x, telco name, AS5906'
+	print '\ttype: can be one of inetnum, organisation, role, route, domain'
+	sys.exit(0)
+
 try:
-    sys.argv[1]
+	ripe_search = sys.argv[1]
 except IndexError:
-    sys.exit("Usage: %s INET4|INET6 address" % os.path.basename(__file__))
+	usage()
+
+try:
+	ripe_type = sys.argv[2]
+except IndexError:
+	ripe_type = 'all'
 
 # ripe: request
-ripe_search = sys.argv[1]
-ripe_base  = 'http://apps.db.ripe.net/whois/search.json?source=ripe&query-string=%s&query-flags=x&object-type=inetnum' % ripe_search
+ripe_base  = 'http://apps.db.ripe.net/whois/search.json?source=ripe&query-string=%s&flags=d' % ripe_search
 ripe_client = urllib2.build_opener()
 ripe_client.addheaders.append(('Accept', 'application/json'))
 
@@ -33,6 +45,7 @@ if ripe_response.headers.get('Content-Type') != 'application/json':
 ripe_json = ripe_response.read()
 ripe_dict = json.loads(ripe_json)
 
+# setup colors
 color_blue = [
     'domain',
     'nserver'
@@ -47,7 +60,6 @@ color_green = [
     'descr',
     'mnt-by'
 ]
-
 dont_display = [
     'admin-c',
     'tech-c',
@@ -55,23 +67,27 @@ dont_display = [
     'address',
     'remarks'
 ]
+
 # print it
 print '%-16s %s' % ('attribute', 'value')
 print '-' * 79
 for obj in ripe_dict['whois-resources']['objects']['object']:
 
 
-    #if obj['type'] == 'person':
+    if ripe_type == 'all':
+        pass
+    else:
 
-    #    continue
-
+        if ripe_type != obj['type']:
+            continue
+        
     for attributes in obj['attributes']['attribute']:
 
         name = attributes['name']
         value = attributes['value']
 
 
-        #if name in dont_display: continue
+        if name in dont_display: continue
 
         if name in color_blue:
 
