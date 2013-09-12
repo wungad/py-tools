@@ -6,11 +6,19 @@ import json
 import colors
 
 
+def print_header(title):
+
+    half = (79 - len(title)) / 2
+    side = half - 2
+    print '#%s%s%s#' % ('-' * side, '-' * len(title), '-' * side)
+    print '#%s%s%s#' % (' ' * side, title, ' ' * side)
+    print '#%s%s%s#' % ('-' * side, '-' * len(title), '-' * side)
+
 def usage():
 
 	print 'Usage:', os.path.basename(__file__), 'search [type]'
 	print '\tsearch: can be x.x.x.x, x.x.x.x/xx, x.x/x, telco name, AS5906'
-	print '\ttype: can be one of inetnum, organisation, role, route, domain'
+	print '\ttype: can be one of inetnum, organisation, role, route6, domain'
 	sys.exit(0)
 
 try:
@@ -46,19 +54,22 @@ ripe_json = ripe_response.read()
 ripe_dict = json.loads(ripe_json)
 
 # setup colors
+color_magenta = [
+    'role',
+]
+color_cyan = [
+    'inetnum',
+    'inet6num'
+]
 color_blue = [
-    'domain',
-    'nserver'
+    'domain'
 ]
 color_yellow = [
-    'inetnum',
-    'inet6num',
     'route',
     'route6'
 ]
 color_green = [
-    'descr',
-    'mnt-by'
+    'organisation'
 ]
 dont_display = [
     'admin-c',
@@ -70,8 +81,8 @@ dont_display = [
 
 # print it
 print '%-16s %s' % ('attribute', 'value')
-print '-' * 79
 for obj in ripe_dict['whois-resources']['objects']['object']:
+
 
 
     if ripe_type == 'all':
@@ -81,33 +92,38 @@ for obj in ripe_dict['whois-resources']['objects']['object']:
         if ripe_type != obj['type']:
             continue
         
+    print_header(obj['type'])
+
     for attributes in obj['attributes']['attribute']:
 
         name = attributes['name']
         value = attributes['value']
 
 
-        if name in dont_display: continue
+        #if name in dont_display: continue
 
-        if name in color_blue:
+        if obj['type'] in color_blue:
 
             print '%s%-16s %s%s' % (colors.Color.BLUE, name, value, colors.Color.END)
 
-        elif name in color_yellow:
+        elif obj['type'] in color_yellow:
 
             print '%s%-16s %s%s' % (colors.Color.YELLOW, name, value, colors.Color.END)
             
-        elif name in color_green:
+        elif obj['type'] in color_green:
 
             print '%s%-16s %s%s' % (colors.Color.GREEN, name, value, colors.Color.END)
 
+        elif obj['type'] in color_cyan:
+
+            print '%s%-16s %s%s' % (colors.Color.CYAN, name, value, colors.Color.END)
+
+        elif obj['type'] in color_magenta:
+
+            print '%s%-16s %s%s' % (colors.Color.MAGENTA, name, value, colors.Color.END)
         else:
 
             print '%-16s %s' % (name, value)
 
-            # print delimiter
-            if name == 'source':
-
-                print '-' * 79
 
 
