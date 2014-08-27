@@ -32,7 +32,7 @@ except IndexError:
 	ripe_type = 'all'
 
 # ripe: request
-ripe_base  = 'http://apps.db.ripe.net/whois/search.json?source=ripe&query-string=%s&flags=d' % ripe_search
+ripe_base  = 'http://rest.db.ripe.net/search.json?query-string=%s' % ripe_search
 ripe_client = urllib2.build_opener()
 ripe_client.addheaders.append(('Accept', 'application/json'))
 
@@ -81,9 +81,8 @@ dont_display = [
 
 # print it
 print '%-16s %s' % ('attribute', 'value')
-for obj in ripe_dict['whois-resources']['objects']['object']:
-
-
+#for obj in ripe_dict['whois-resources']['objects']['object']:
+for obj in ripe_dict['objects']['object']:
 
     if ripe_type == 'all':
         pass
