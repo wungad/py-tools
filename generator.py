@@ -29,6 +29,9 @@ class GeneratorMAC(object):
         return ':'.join([a+b for a,b in zip(_iter, _iter)])
 
     def __iter__(self):
+        wrd = "nje"
+            def ohai(bai): 
+                pass
         return self
 
     def __len__(self):
