@@ -1,5 +1,12 @@
 #### python tools to make my life easier
 
+#### pls.py: simple quick and dirty playlist parser
+    >>> import pls
+    >>> p = pls.Playlist('mp4.pls')
+    >>> p.getVersion()
+    '2'
+    >>> p.getFileByTitle('EUROSPORT')
+    'udp://@232.4.2.25:5002'
 
 ##### ripeq: tool for querying RIPE database
     $ ./ripeq 2a00:ee0::/32
