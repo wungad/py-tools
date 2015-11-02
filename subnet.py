@@ -23,6 +23,8 @@ class Subnet(object):
             self.inv_netmask = (~ self.netmask) & 0xFFFFFFFF
             self.broadcast = self.inv_netmask | self.network
             
+    def __eq__(self,other):
+        return self.network == other.network
         
     def get_ip(self):
         'Returns ip address'
