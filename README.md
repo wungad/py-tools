@@ -1,5 +1,12 @@
 #### python tools to make my life easier
 
+### pps: packet per second counter for Linux
+    $ ./pps bond0
+    Usage: ./pps <network interface name> <interval seconds>
+    $ ./pps bond0 1
+    RX:  2852 pps | TX:  2791 pps
+    RX:  2830 pps | TX:  2798 pps
+
 #### pls.py: simple quick and dirty playlist parser
     >>> import pls
     >>> p = pls.Playlist('mp4.pls')
