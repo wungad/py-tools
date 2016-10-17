@@ -9,36 +9,53 @@ except:
     sys.exit("Usage: %s <network interface name> <interval seconds>" % __file__)
 
 try:
-    rx_stats = open('/sys/class/net/%s/statistics/rx_packets' % iface)
-    tx_stats = open('/sys/class/net/%s/statistics/tx_packets' % iface)
+    rxstat_packets = open('/sys/class/net/%s/statistics/rx_packets' % iface)
+    txstat_packets = open('/sys/class/net/%s/statistics/tx_packets' % iface)
+    rxstat_bytes = open('/sys/class/net/%s/statistics/rx_bytes' % iface)
+    txstat_bytes = open('/sys/class/net/%s/statistics/tx_bytes' % iface)
 except:
     sys.exit("Unable to get stats. Not Linux?")
     
 while True:
 
     ### SEEK NA START
-    rx_stats.seek(0,0)
-    tx_stats.seek(0,0)
+    rxstat_packets.seek(0,0)
+    txstat_packets.seek(0,0)
 
-    rx_packets_1 = float(rx_stats.read())
-    tx_packets_1 = float(tx_stats.read())
+    rx_packets_1 = float(rxstat_packets.read())
+    tx_packets_1 = float(txstat_packets.read())
+
+    rxstat_bytes.seek(0,0)
+    txstat_bytes.seek(0,0)
+
+    rx_bytes_1 = float(rxstat_bytes.read())
+    tx_bytes_1 = float(txstat_bytes.read())
 
     ### MAL ZASPIMO
     try: time.sleep(interval)
     except KeyboardInterrupt: break
     
     ### SEEK NA START
-    rx_stats.seek(0,0)
-    tx_stats.seek(0,0)
+    rxstat_packets.seek(0,0)
+    txstat_packets.seek(0,0)
+    rxstat_bytes.seek(0,0)
+    txstat_bytes.seek(0,0)
 
-    rx_packets_2 = int(rx_stats.read())
-    tx_packets_2 = int(tx_stats.read())
+    rx_packets_2 = int(rxstat_packets.read())
+    tx_packets_2 = int(txstat_packets.read())
+    rx_bytes_2 = int(rxstat_bytes.read())
+    tx_bytes_2 = int(txstat_bytes.read())
 
     ### MAL PORACUNAMO
     rx_pps = (rx_packets_2 - rx_packets_1) / interval
     tx_pps = (tx_packets_2 - tx_packets_1) / interval
+    rx_bps = (rx_bytes_2 - rx_bytes_1) / interval
+    tx_bps = (tx_bytes_2 - tx_bytes_1) / interval
 
-    print 'RX: %5d pps | TX: %5d pps' % (rx_pps, tx_pps)
+    print 'RX: %5d pps | TX: %5d pps | RX: %5d bps | TX: %5d bps' % (rx_pps, tx_pps, rx_bps, tx_bps)
 
-rx_stats.close()
-tx_stats.close()
+rxstat_packets.close()
+txstat_packets.close()
+rxstat_bytes.close()
+txstat_bytes.close()
+
