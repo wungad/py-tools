@@ -1,5 +1,9 @@
 #### python tools to make my life easier
 
+### sethostid: set hostid on your Linux box
+    # ./sethostid 13ac0b00
+    # Done. Run `hostid` to verify.
+
 ### pps: packet per second counter for Linux
     $ ./pps bond0
     Usage: ./pps <network interface name> <interval seconds>

@@ -1,0 +1,29 @@
+#!/usr/bin/python2
+import sys
+
+IDFILE = '/etc/hostid'
+
+def hid2bin(hid):
+
+    x = int(hid,16)
+    a = x >> 24 & 0xff
+    b = x >> 16 & 0xff
+    c = x >> 8 & 0xff
+    d = x >> 0 & 0xff
+    return '%c%c%c%c' % (d,c,b,a)
+
+def writebin(path, data):
+    f = open(path, 'wb')
+    f.write(data)
+    f.close()
+
+### SANITY: ARGS
+try:
+    hostid = hid2bin(sys.argv[1])
+    writebin(IDFILE, hostid)
+except IndexError:
+    raise SystemExit("usage: %s <HOSTID>" % __file__)
+except IOError as e:
+    raise SystemExit("Error writing to %s. Check your permissions." % IDFILE)
+else:
+    print("Done. Run `hostid` to verify.")
