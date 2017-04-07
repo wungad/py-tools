@@ -1,5 +1,10 @@
 #### python tools to make my life easier
 
+### fugly-files.py: make file names nicer
+    $ ./fugly-files.py '*.txt' '.' 
+    Renamed Ugly Name.txt => Ugly.Name.txt
+    Renamed Even.Fuglier _Name of __ a -file-name.txt => Even.Fuglier.Name.Of.A.File.Name.txt
+
 ### sethostid: set hostid on your Linux box
     # ./sethostid 13ac0b00
     # Done. Run `hostid` to verify.
