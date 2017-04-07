@@ -23,6 +23,9 @@ class Subnet(object):
             self.inv_netmask = (~ self.netmask) & 0xFFFFFFFF
             self.broadcast = self.inv_netmask | self.network
             
+    def __repr__(self):
+        return "class Subnet('%s', '%s')" % (self.get_network(), self.get_netmask())
+
     def __eq__(self,other):
         return self.network == other.network
         
