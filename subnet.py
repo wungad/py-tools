@@ -55,3 +55,14 @@ class Subnet(object):
         Broadcast and network address included.
         '''
         return [socket.inet_ntoa(struct.pack('!L', ip)) for ip in range(self.network, self.broadcast + 1)]
+
+    def contains_ip(self, ip):
+        'Returns True if ip is in network object'
+
+        thisip  = struct.unpack("!L", socket.inet_aton(ip))[0]
+
+        if (thisip >= self.network) and (thisip <= self.broadcast):
+            return True
+        else:
+            return False
+

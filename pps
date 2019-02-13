@@ -52,7 +52,7 @@ while True:
     rx_bps = (rx_bytes_2 - rx_bytes_1) / interval
     tx_bps = (tx_bytes_2 - tx_bytes_1) / interval
 
-    print 'RX: %5d pps | TX: %5d pps | RX: %5d Bps | TX: %5d Bps' % (rx_pps, tx_pps, rx_bps, tx_bps)
+    print 'RX: %5d pps | TX: %5d pps | RX: %5d bps | TX: %5d bps' % (rx_pps, tx_pps, rx_bps, tx_bps)
 
 rxstat_packets.close()
 txstat_packets.close()
